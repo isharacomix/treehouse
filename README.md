@@ -16,7 +16,7 @@ Install Nginx with RTMP support
     sudo su - uwsgi
     sudo apt-get update
     sudo apt-get install build-essential libpcre3 libpcre3-dev libssl-dev zlib1g-dev python3-pip mysql-client mysql-server redis libmysqlclient-dev
-    pip3 install uwsgi django mysqlclient redis
+    pip3 install uwsgi django mysqlclient redis certbot
     git clone https://github.com/isharacomix/nginx-rtmp-module
     wget http://nginx.org/download/nginx-1.14.0.tar.gz
     tar -xf nginx-1.14.0.tar.gz
