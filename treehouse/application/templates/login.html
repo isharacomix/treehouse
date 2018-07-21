@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Live Streaming</title>
+</head>
+<body>
+Log in!
+
+
+<form action='/login' method='POST'> {% csrf_token %}
+    <div >
+        <label for='username'> Username </label>
+        <input type='text' name='username' id='username'>
+        <label for='password'>Password </label>
+        <input type='password' name='password' id='password'>
+        <input type='submit' value='login'>
+    </div>
+</form>
+
+</body>
+</html>

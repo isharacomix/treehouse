@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Live Streaming</title>
+</head>
+<body>
+
+
+{% for u in users %}
+<div>
+
+<form action="{% url 'user_list' %}" method='POST'> {% csrf_token %}
+    <div >
+      {{ u.username }} {% if not u.is_superuser %}
+        <input type="hidden" name="username" value="{{ u.username }}">
+        <input type="hidden" name="action" value="delete">
+
+        <input type='submit' value='delete {{ u.username }}'>
+        {% endif %}
+    </div>
+</form>
+
+
+</div>
+{% endfor %}
+
+
+</body>
+</html>

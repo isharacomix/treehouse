@@ -1,0 +1,80 @@
+
+
+<div>
+
+
+  <div id='game' style="overflow:scroll; height:400px;">
+    <div id='chatinner'>
+    </div>
+    <div id="chatbottom">
+    </div>
+  </div>
+  <div id="form">
+      <div class="form-group">
+          <div class="input-group">
+              <input class="form-control" id="commandfield" style="font-family: monospace;" type="text" name="content" />
+              <span class="input-group-btn">
+              <button class="btn btn-default" onclick="post_command();">Submit</button>
+              </span>
+          </div>
+      </div>
+  </div>
+
+
+
+
+
+
+
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script type="text/javascript">
+
+  "use strict";
+
+  var age = 0;
+
+  /* Check for new messages from the server frequently. */
+  var intervalID = window.setInterval(update_handler, 3000);
+  function update_handler() {
+      $.getJSON("/api/chat?age="+age, function(data){
+            var scroll = $( "#chatbottom" )[0].getBoundingClientRect().top <= $( "#commandfield" )[0].getBoundingClientRect().top;
+            var item = null;
+            for (var i = 0; i < data.messages.length; i++){
+                item = $( "#chatinner" ).append( '<div><p><strong>['+data.messages[i].author+']</strong> '+data.messages[i].content+'</p></div>' );
+                age = Math.max(data.messages[i].age, age);
+
+            }
+            if (data.messages.length > 0 && scroll)
+            {
+                $( "#chatbottom" )[0].scrollIntoView({behavior: "smooth"});
+                //$( "#game" ).scrollTop = $( "#game" ).scrollHeight;
+            }
+          })
+  };
+
+  /* Overload the enter key to send commands to the server. */
+  $(document).keydown(function(e) {
+      switch(e.which) {
+          case 13: post_command(); break;
+          default: return;
+      }
+  });
+
+  /* This takes the text in the command field and fires it off to the server
+     for parsing. */
+  function post_command(){
+      var command = $("#commandfield").val();
+      $("#commandfield").val("");
+      fire_command(command);
+  };
+
+  function fire_command(command)
+  {
+      $.post( "/api/chat", {'content': command}, function( data ) {})
+  };
+
+  </script>
+
+</div>

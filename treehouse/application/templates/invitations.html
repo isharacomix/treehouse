@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Live Streaming</title>
+</head>
+<body>
+
+
+<ul>
+{% for i in invitations %}
+<li>
+{% if not i.expired %}<a href="{% url 'invitation' i.id %}">{{ i.id }}</a>{% else %}{{ i.id }} - Expired{% endif %}
+</li>
+{% endfor %}
+</ul>
+
+
+<form action="{% url 'invitation_list' %}" method='POST'> {% csrf_token %}
+    <div >
+        <input type='submit' value='create new invitation'>
+    </div>
+</form>
+
+</body>
+</html>
