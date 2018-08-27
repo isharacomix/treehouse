@@ -69,7 +69,7 @@ Run daemons and remove uwsgi from sudo.
 
     sudo service nginx start
     sudo service uwsgi start
-    #sudo chmod a+rx /mnt/hls
+    sudo chmod a+rx /mnt/hls
     exit
     sudo deluser uwsgi sudo
 
