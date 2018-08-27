@@ -5,6 +5,7 @@ from . import views
 urlpatterns = [
     path(r'', views.Index.as_view(), name='index'),
     path(r'hls/<filename>', views.StreamFragment.as_view(), name='fragment'),
+    path(r'hls/<directory>/<filename>', views.StreamFragment.as_view(), name='extfragment'),
     path(r'login', views.LoginPage.as_view(), name='login'),
     path(r'logout', views.LogoutPage.as_view(), name='logout'),
     path(r'login/<uuid:invitation>', views.InvitationPage.as_view(), name='invitation'),

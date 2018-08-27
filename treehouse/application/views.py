@@ -49,13 +49,19 @@ class Chatroom(View):
 # This fetches stream fragments for logged in users. It's a performance
 # bottleneck, but I don't know a better way to authenticate downloading the
 # stream bits.
+# Make sure all of the directories that need to be readable by this user are,
+# in fact, readable!
 class StreamFragment(View):
-    def get(self, request, filename):
+    def get(self, request, filename, directory=None):
         if request.user.is_anonymous:
             return redirect('login')
 
         r = Redis()
         r.set('treehouse:viewer:%s'%hash(request.user.username), request.user.username, 120)
+
+        if directory:
+            directory = directory.replace('.', '')
+            filename = directory + '/' + filename
 
         if filename.endswith('.m3u8'):
             try:
