@@ -39,7 +39,6 @@ Install Nginx with RTMP support
     sudo mkdir /var/log/uwsgi
     sudo mkdir /mnt/hls
     sudo chown uwsgi /var/log/uwsgi
-    sudo chown uwsgi /mnt/hls
     sudo cp configs/emperor.ini /etc/uwsgi/emperor.ini
     sudo cp configs/treehouse.ini /etc/uwsgi/vassals/treehouse.ini
     sudo cp configs/nginx.service /etc/systemd/system/nginx.service
