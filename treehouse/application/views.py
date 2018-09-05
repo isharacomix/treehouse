@@ -32,9 +32,9 @@ class Index(View):
 
         q = request.GET.get('q', None)
         if q:
-            session['q'] = q
+            request.session['q'] = q
         else:
-            q = session.get('q', None)
+            q = request.session.get('q', None)
         stream_src = QUALITY_OPTIONS.get(q, None)
         
         return render(request, 'index.html', {'superuser': request.user.is_superuser, 'stream_src': stream_src})
@@ -48,9 +48,9 @@ class Videoroom(View):
             return redirect('login')
         q = request.GET.get('q', None)
         if q:
-            session['q'] = q
+            request.session['q'] = q
         else:
-            q = session.get('q', None)
+            q = request.session.get('q', None)
         stream_src = QUALITY_OPTIONS.get(q, None)
 
         return render(request, 'video.html', {'stream_src': stream_src})
