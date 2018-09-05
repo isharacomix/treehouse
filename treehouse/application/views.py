@@ -18,9 +18,9 @@ from redis import Redis
 import json
 import time
 
-QUALITY_OPTIONS = {1080: '/hls/1080p/index.m3u8',
-                   720: '/hls/720p/index.m3u8',
-                   480: '/hls/480p/index.m3u8'}
+QUALITY_OPTIONS = {'1080': '/hls/1080p/index.m3u8',
+                   '720': '/hls/720p/index.m3u8',
+                   '480': '/hls/480p/index.m3u8'}
 
 
 # Index: if the user is not logged in, make them log in. Otherwise, render
