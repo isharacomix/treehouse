@@ -1,9 +1,9 @@
 
   <div>
     <video id="player" class="video-js vjs-default-skin" data-setup='{"fluid": true}' controls preload="none">
-        <source src="/hls/stream.m3u8" type="application/x-mpegURL" />
+        <source src="{{ stream_src|default:'/hls/stream.m3u8'}}" type="application/x-mpegURL" />
     </video>
-</div>
+  </div>
 <script>
     var player = videojs('#player');
 </script>
