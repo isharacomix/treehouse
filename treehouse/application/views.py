@@ -18,6 +18,11 @@ from redis import Redis
 import json
 import time
 
+QUALITY_OPTIONS = {1080: '/hls/1080p/index.m3u8',
+                   720: '/hls/720p/index.m3u8',
+                   480: '/hls/480p/index.m3u8'}
+
+
 # Index: if the user is not logged in, make them log in. Otherwise, render
 # the stream.
 class Index(View):
@@ -25,7 +30,14 @@ class Index(View):
         if request.user.is_anonymous:
             return redirect('login')
 
-        return render(request, 'index.html', {'superuser': request.user.is_superuser})
+        q = request.GET.get('q', None)
+        if q:
+            session['q'] = q
+        else:
+            q = session.get('q', None)
+        stream_src = QUALITY_OPTIONS.get(q, None)
+        
+        return render(request, 'index.html', {'superuser': request.user.is_superuser, 'stream_src': stream_src})
 
 
 
@@ -34,8 +46,14 @@ class Videoroom(View):
     def get(self, request):
         if request.user.is_anonymous:
             return redirect('login')
+        q = request.GET.get('q', None)
+        if q:
+            session['q'] = q
+        else:
+            q = session.get('q', None)
+        stream_src = QUALITY_OPTIONS.get(q, None)
 
-        return render(request, 'video.html')
+        return render(request, 'video.html', {'stream_src': stream_src})
 
 # Chatroom
 class Chatroom(View):
